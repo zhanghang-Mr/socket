@@ -50,6 +50,7 @@ public class UserController {
         }else{
             User user = new User();
             user.setUsername(bean.getUsername());
+            user.setNickname(bean.getNickname());
             user.setPassword(new BCryptPasswordEncoder().encode(bean.getPassword()));
             userMapper.insertSelective(user);
             result.setResult(true);
