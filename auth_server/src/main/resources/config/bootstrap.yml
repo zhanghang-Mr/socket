@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: auth-server
+  jackson:
+    time-zone: GMT+8 #解决Date类型少八个小时问题
+    default-property-inclusion: ALWAYS  #null值输出
+    date-format: yyyy-MM-dd HH:mm:ss  #默认时间格式

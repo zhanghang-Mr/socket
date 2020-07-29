@@ -1,0 +1,12 @@
+#===========Feign 配置========
+feign:
+   client:
+      config:
+         default:
+            loggerLevel: basic
+   httpclient:
+      enabled: false
+   okhttp:
+      enabled: true
+   hystrix:
+      enabled: true

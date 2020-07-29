@@ -1,0 +1,17 @@
+#==================== 安全配置 ============================
+spring:
+  profiles:
+    include:
+          testDb,  testAct
+
+#==================== Eureka ============================
+eureka:
+  instance:
+    hostname: localhost #配置使用主机名注册服务
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+  client:
+    service-url:
+      defaultZone: http://zh:zh12@localhost:8801/eureka/

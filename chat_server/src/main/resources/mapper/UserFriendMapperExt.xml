@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zh.application.mapper.UserFriendMapperExt" >
+
+  <select id="getInviteMessage" resultType="com.zh.application.pojo.vo.InviteMessageVo">
+        select uf.id, u.nickname,u.username, uf.message
+        from user_friend uf join `user` u
+        on uf.to_user_id = u.id and uf.is_accept is NULL
+        and uf.accept_user_id = #{uid}
+  </select>
+
+    <select id="getUserBuId" resultType="com.zh.application.pojo.User">
+        select id,username,nickname,password
+        from user where id = #{id}
+    </select>
+
+    <!--根据用户id 获取好友 -->
+    <select id="getFriendByUid" resultType="com.zh.application.pojo.vo.UserFriendVo">
+        select u.id uid, u.username, u.nickname
+        from user_friend uf join user u
+        on uf.accept_user_id = u.id  and uf.is_accept = 1 and uf.to_user_id = #{uid}
+        UNION
+        select u.id uid, u.username, u.nickname
+        from user_friend uf join user u
+        on uf.to_user_id = u.id   and uf.is_accept = 1 and uf.accept_user_id = #{uid}
+    </select>
+
+    <!--根据邀请人uid 和 被邀请人uid 查询 是否已经邀请过 -->
+    <select id="getIsAccept" resultType="Byte">
+        select COUNT(*)
+        from user_friend
+        WHERE to_user_id = #{toUserId} and accept_user_id = #{acceptUserId} and is_accept is null
+    </select>
+
+    <!--根据群id 查询群成员 -->
+    <select id="getGroupByGroupId" resultType="Long">
+        select user_id
+        from user_group
+        where  group_id = #{id} and is_accept = 1
+    </select>
+</mapper>
