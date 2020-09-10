@@ -3,6 +3,13 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/auth_server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chat_server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka_client_8001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka_client_8002/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka_client_8003/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka_server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign_server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hystrix_dashboard/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ribbon_server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zuul_server/src/main/java" charset="UTF-8" />
   </component>
 </project>

@@ -1,0 +1,63 @@
+
+server:
+  port: 8011
+  servlet:
+    session:
+      timeout: 3600
+  tomcat:
+    uri-encoding: utf-8
+
+#==================== Eureka Client============================
+eureka:
+  client:
+    register-with-eureka: true #向Eureka中注册自己
+    service-url:
+      defaultZone: http://zh:zh12@localhost:8801/eureka/ #这里zh:zh12 是自己添加的安全认证，不想添加可以直接在eurekaServer端和这里统一去掉
+  instance:
+    hostname: localhost #配置使用主机名注册服务
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@ #可以修改eureka上status的默认描述信息
+    prefer-ip-address: true       #可以将IP注册到Eureka Server上，而如果不配置就是机器的主机名
+    leaseRenewalIntervalInSeconds: 10 #租期更新时间间隔(默认30秒).每间隔10s，向服务端发送一次心跳，证明自己依然”存活“
+    leaseExpirationDurationInSeconds: 30 #租期到期时间(默认90秒).告诉服务端，如果我30s之内没有给你发心跳，就代表我“死”了，将我踢出掉
+
+
+#===========Feign 配置========
+feign:
+  httpclient:
+    enabled: false
+    max-connections: 50 # 连接池连接最大闲置数(缺省值 200)）
+    time-to-live: 600 # 连接最大闲置时间，单位为秒，600秒==10分钟(缺省值为 900秒==15分钟)
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: true #开启熔断
+
+#===========Ribbon 配置========
+ribbon:
+  ConnectTimeout: 4000 #ribbon请求连接的超时时间，默认值2000
+  ReadTimeout: 8000 #负载均衡超时时间，默认值5000
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+  OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
+  MaxAutoRetries: 0 #同一台实例最大重试次数,不包括首次调用，默认0
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用，默认1
+  restclient:
+    enabled: true
+  eager-load:
+    enabled: true
+    clients: #指定需要关闭懒加载的服务名
+
+#==========hystrix熔断配置=======
+hystrix:
+  command:
+    default: #default全局有效，service id指定应用有效
+      circuitBreaker:
+        sleepWindowInMilliseconds: 5000
+        requestVolumeThreshold: 20 #熔断生效至少请求数量(默认20),当同一HystrixCommand请求数量低于此值时,熔断不会开启
+        errorThresholdPercentage: 50 # 失败次数超过比例才开启熔断
+        forceClosed: true
+      execution:
+        timeout:
+          enabled: true #是否开启超时熔断
+        isolation:
+          thread:
+            timeoutInMilliseconds: 16000 #断路器超时时间，默认1000ms
