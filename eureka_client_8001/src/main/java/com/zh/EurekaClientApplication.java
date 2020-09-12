@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableEurekaClient  //eureka-client注解，启动后服务自动注册到eureka-server
 @EnableHystrixDashboard
+@EnableCircuitBreaker
 public class EurekaClientApplication {
     public static void main(String[] args) {
         SpringApplication.run(EurekaClientApplication.class,args);

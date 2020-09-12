@@ -1,0 +1,14 @@
+server:
+  port: 8020
+
+spring:
+  application:
+    name: springcloud-config-server
+    #连接远程仓库
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/zh_0209_java/springcloud-config.git #远程仓库地址，https
+#          password: XXXX  #自己远程的密码
+#          username: XXXX  #自己远程的账号

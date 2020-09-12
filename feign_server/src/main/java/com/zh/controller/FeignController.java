@@ -18,4 +18,5 @@ public class FeignController {
     public String getTestFeign(){
         return eurekaClientFeign.getTestRibbon();
     }
+
 }

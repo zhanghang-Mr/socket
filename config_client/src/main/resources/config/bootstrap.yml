@@ -1,0 +1,9 @@
+#=== bootstrap.yml 是系统级别的配置=== application.yml 是用户级别的配置=====
+spring:
+  cloud:
+    config:
+      name: application-client  # 需要从git远程上读取的资源名称，不需要后缀
+      # 这里的这个客户端的uri连接的是 config服务端的url
+      uri: http://localhost:8020
+      profile: test  #访问的多环境下的那个环境
+      label: master  # 分支
